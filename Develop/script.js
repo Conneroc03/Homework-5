@@ -28,4 +28,23 @@ const displayTimeBlockRows = () => {
     container.appendChild(timeBlock);
   }
 };
+// saves time blocks to local storage
+function saveTimeBlockObject() {
+  localStorage.setItem('timeblockObjects', JSON.stringify(timeblockObjects));
+}
+
+// click function 
+const containerClicked = (event) => {
+  if (event.target.classList.contains('saveBtn')) {
+    const timeBlockHour = event.target.parentElement.id.split('-')[1];
+    const timeBlockTodo = event.target.previousSibling.value;
+    const foundTimeBlock = timeblockObjects.find(block => block.hour === timeBlockHour);
+    if (foundTimeBlock) {
+      foundTimeBlock.todo = timeBlockTodo;
+    } else {
+      timeblockObjects.push({ hour: timeBlockHour, todo: timeBlockTodo });
+    }
+    saveTimeBlockObject();
+  }
+};
 
