@@ -48,3 +48,29 @@ const containerClicked = (event) => {
   }
 };
 
+// init function
+const init = () => {
+  const currentDate = moment().format('dddd, MMMM Do');
+  document.getElementById('currentDay').textContent = currentDate;
+  displayTimeBlockRows();
+  setTimeBlockText();
+};
+
+// sets time block text
+function setTimeBlockText() {
+  if (currentTimeblocks.length === 0) {
+    return;
+  } else {
+    currentTimeblocks.forEach(block => {
+      const timeBlock = document.querySelector(`#timeblock-${block.hour} textarea`);
+      if (timeBlock) timeBlock.value = block.todo;
+    });
+  }
+}
+
+// event listener
+document.querySelector('.container').addEventListener('click', containerClicked);
+
+// init function call
+init();
+
